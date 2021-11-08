@@ -1,0 +1,32 @@
+package com.example.recyclerviewexample
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var blogAdapter: BlogRecyclerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val recyclerView: RecyclerView? = findViewById<RecyclerView>(R.id.recycler_view)
+
+        recyclerView?.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            val topSpacingDecorator = TopSpacingItemDecorationKit(30)
+            addItemDecoration(topSpacingDecorator)
+            blogAdapter = BlogRecyclerAdapter()
+            adapter = blogAdapter
+
+            val data = DataSource.createDataSet()
+            blogAdapter.submitList(data)
+        }
+
+
+    }
+
+}
